@@ -1,5 +1,6 @@
 package com.scoringsalud.app.application.user;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,18 +28,27 @@ public class UsuarioService {
 		return usuarioRepository.findByNombre(nombre);
 	}
 	//Update operation
-	public Usuario update(String nombre, String apellido, String edad) {
-		Usuario p = usuarioRepository.findByNombre(nombre);
-		p.setApellido(apellido);
-		p.setEdad(edad);
-		return usuarioRepository.save(p);
+	public Usuario update(Usuario usuario) throws FileNotFoundException {
+		Usuario user = usuarioRepository.findByMail(usuario.getMail());
+		if (user == null) {
+			throw new FileNotFoundException("El usuario "+ usuario.getMail()+" no fue encontrado, verifique su mail.");
+		}
+		user.setNombre(usuario.getNombre());
+		user.setApellido(usuario.getApellido());
+		user.setEdad(usuario.getEdad());
+		user.setDni(usuario.getDni());
+		return usuarioRepository.save(user);
 	}
 	//Delete operation
 	public void deleteAll() {
 		usuarioRepository.deleteAll();
 	}
-	public void delete(String mail) {
-		Usuario p = usuarioRepository.findByMail(mail);
-		usuarioRepository.delete(p);
+	//Eliminar usuario
+	public void delete(String mail) throws FileNotFoundException {
+		Usuario user = usuarioRepository.findByMail(mail.trim());
+		if (user == null) {
+			throw new FileNotFoundException("El usuario "+ mail+" no fue encontrado, verifique su mail.");
+		}
+		usuarioRepository.delete(user);
 	}
 }
