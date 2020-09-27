@@ -11,58 +11,54 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.scoringsalud.app.application.user.UsuarioService;
 import com.scoringsalud.app.domain.user.Usuario;
-import com.scoringsalud.app.domain.user.UsuarioRepository;
 
 @RestController
 public class UsuarioController {
 	
 	@Autowired
-	private UsuarioRepository repository;
-	@Autowired
 	private UsuarioService usuario;
 	
-	@PostMapping("/crearUsuario")
-	public String crearUsuario(@RequestBody Usuario usuario) {
-		repository.save(usuario); //Antes hacer validación de datos
-		return null; //Retornar success o error
-	}
-	
-	@PutMapping("/actualizarUsuario")
-	public String actualizarUsuario(@RequestBody Usuario usuario) {
+	@PostMapping(path="/crearUsuario")
+	public @ResponseBody String crearUsuario(@RequestBody Usuario usuario) {
 		try {
-			repository.save(this.usuario.update(usuario)); //Antes hacer validación de datos
-			return "El usuario "+usuario.getMail()+" se actualizo correctamente."; //Retornar success o error
-		}
-		catch(FileNotFoundException e) {
-			return e.toString();
-		}
-	}
-	
-	@RequestMapping("/crear")
-	public String create(@RequestParam String mail, @RequestParam String nombre, @RequestParam String apellido, @RequestParam String edad) {
-		try {
-			Usuario p = usuario.create(mail, nombre, apellido, edad);
-			return p.toString();
+			return this.usuario.crear(usuario).toString(); //Antes hacer validación de datos
 		}catch(NullPointerException e) {
 			return e.toString();
 		}
 		
 	}
 	
-	@GetMapping(path="/obtenerUsuario/{id}")
-	public Optional<Usuario> buscarUsuario(@PathVariable String id) {
-		return repository.findById(id); 
+	@PutMapping(path="/actualizarUsuario")
+	public @ResponseBody String actualizarUsuario(@RequestBody Usuario usuario) {
+		try {
+			return "El usuario "+this.usuario.actualizar(usuario).getMail()+" se actualizo correctamente."; //Retornar success o error
+		}
+		catch(FileNotFoundException e) {
+			return e.toString();
+		}
+	}
+		
+	@GetMapping(path="/obtenerUsuario", produces="application/json")
+	public @ResponseBody String buscarUsuario(@RequestParam String mail) {
+		try {
+			return this.usuario.getByMail(mail); 
+		}
+		catch(NullPointerException e) {
+			return e.toString();
+		}
 	}
 	
-	@DeleteMapping("/eliminar")
-	public String delete(@RequestParam String mail) {
+	@DeleteMapping(path="/eliminar")
+	public @ResponseBody String delete(@RequestParam String mail) {
 		try {
-			usuario.delete(mail);
+			usuario.eliminar(mail);
 			return "Usuario: "+mail+" eliminado.";
 		}catch(FileNotFoundException e) {
 			return e.toString();
