@@ -8,10 +8,5 @@ public class Proximidad implements Medidor{
 		return "Proximidad";
 	}
 
-	@Override
-	public void setEstrategiaMedicion() {
-		// TODO Auto-generated method stub
-		
-	}
 
 }

@@ -15,10 +15,5 @@ public class Acelerometro implements Medidor {
 		
 	}
 
-	@Override
-	public void setEstrategiaMedicion() {
-		// TODO Auto-generated method stub
-		
-	}
 
 }
