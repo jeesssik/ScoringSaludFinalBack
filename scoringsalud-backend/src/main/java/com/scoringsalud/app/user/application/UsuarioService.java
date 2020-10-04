@@ -1,4 +1,4 @@
-package com.scoringsalud.app.application.user;
+package com.scoringsalud.app.user.application;
 
 import java.util.List;
 
@@ -7,12 +7,12 @@ import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.scoringsalud.app.application.exceptions.ApiNotFoundException;
-import com.scoringsalud.app.application.exceptions.ApiProcessingException;
-import com.scoringsalud.app.application.exceptions.ApiRequestException;
-import com.scoringsalud.app.application.exceptions.ApiServerException;
-import com.scoringsalud.app.domain.user.Usuario;
-import com.scoringsalud.app.domain.user.UsuarioRepository;
+import com.scoringsalud.app.exceptions.application.ApiNotFoundException;
+import com.scoringsalud.app.exceptions.application.ApiProcessingException;
+import com.scoringsalud.app.exceptions.application.ApiRequestException;
+import com.scoringsalud.app.exceptions.application.ApiServerException;
+import com.scoringsalud.app.user.domain.Usuario;
+import com.scoringsalud.app.user.domain.UsuarioRepository;
 
 @Service
 public class UsuarioService {
