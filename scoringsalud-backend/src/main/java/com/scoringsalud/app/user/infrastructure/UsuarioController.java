@@ -1,4 +1,4 @@
-package com.scoringsalud.app.infrastructure.user;
+package com.scoringsalud.app.user.infrastructure;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.scoringsalud.app.application.exceptions.ApiNotFoundException;
-import com.scoringsalud.app.application.exceptions.ApiProcessingException;
-import com.scoringsalud.app.application.exceptions.ApiRequestException;
-import com.scoringsalud.app.application.exceptions.ApiServerException;
-import com.scoringsalud.app.application.user.UsuarioService;
-import com.scoringsalud.app.domain.user.Usuario;
+import com.scoringsalud.app.exceptions.application.ApiNotFoundException;
+import com.scoringsalud.app.exceptions.application.ApiProcessingException;
+import com.scoringsalud.app.exceptions.application.ApiRequestException;
+import com.scoringsalud.app.exceptions.application.ApiServerException;
+import com.scoringsalud.app.user.application.UsuarioService;
+import com.scoringsalud.app.user.domain.Usuario;
 
 @RestController
 public class UsuarioController {

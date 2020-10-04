@@ -1,4 +1,4 @@
-package com.scoringsalud.app.domain.puntuable;
+package com.scoringsalud.app.puntuable.domain;
 
 import java.util.ArrayList;
 
@@ -16,8 +16,8 @@ public abstract class Regular extends Puntuable {
 	protected @Getter @Setter int repeticionesRealizadas;
 	protected ArrayList<Medidor> medidores;
 	
-	public Regular(String nombre, int puntosOtorgables,boolean PosicionUnica,int repeticiones) {
-		super(nombre,puntosOtorgables);
+	public Regular(String codigo, String nombre, int puntosOtorgables,boolean PosicionUnica,int repeticiones) {
+		super(codigo, nombre,puntosOtorgables);
 		this.PosicionUnica=PosicionUnica;
 		setRepeticiones(repeticiones);
 		setRepeticionesRealizadas(0);

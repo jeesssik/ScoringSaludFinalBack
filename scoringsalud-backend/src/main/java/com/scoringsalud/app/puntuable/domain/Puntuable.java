@@ -1,4 +1,4 @@
-package com.scoringsalud.app.domain.puntuable;
+package com.scoringsalud.app.puntuable.domain;
 
 
 import java.time.LocalDateTime;
@@ -18,6 +18,7 @@ import lombok.ToString;
 public abstract class Puntuable {
 	
 	@Id
+	protected String codigo;
 	protected  String nombre;
 	protected  int puntosOtorgables;
 	protected  int puntosObtenidos;
@@ -25,7 +26,8 @@ public abstract class Puntuable {
 	protected  String detalle;
 
 	
-	public Puntuable(String nombre, int puntosOtorgables) {
+	public Puntuable(String codigo, String nombre, int puntosOtorgables) {
+		this.codigo = codigo;
 		this.nombre = nombre;
 		this.puntosOtorgables = puntosOtorgables;
 		fecha = LocalDateTime.now();
@@ -52,5 +54,48 @@ public abstract class Puntuable {
 	public void setPuntosObtenidos(int puntosObtenidos) {
 		this.puntosObtenidos = puntosObtenidos;
 	}
+
+
+
+	public String getCodigo() {
+		return codigo;
+	}
+
+
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
+	}
+
+
+
+	public String getNombre() {
+		return nombre;
+	}
+
+
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+
+
+	public LocalDateTime getFecha() {
+		return fecha;
+	}
+
+
+
+	public void setFecha(LocalDateTime fecha) {
+		this.fecha = fecha;
+	}
+
+
+
+	public void setDetalle(String detalle) {
+		this.detalle = detalle;
+	}
+	
 
 }

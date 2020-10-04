@@ -1,15 +1,15 @@
-package com.scoringsalud.app.application.puntuable;
+package com.scoringsalud.app.puntuable.application;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.scoringsalud.app.application.exceptions.ApiNotFoundException;
-import com.scoringsalud.app.application.exceptions.ApiProcessingException;
-import com.scoringsalud.app.application.exceptions.ApiRequestException;
-import com.scoringsalud.app.application.exceptions.ApiServerException;
-import com.scoringsalud.app.domain.puntuable.Puntuable;
-import com.scoringsalud.app.domain.puntuable.PuntuableRepository;
+import com.scoringsalud.app.exceptions.application.ApiNotFoundException;
+import com.scoringsalud.app.exceptions.application.ApiProcessingException;
+import com.scoringsalud.app.exceptions.application.ApiRequestException;
+import com.scoringsalud.app.exceptions.application.ApiServerException;
+import com.scoringsalud.app.puntuable.domain.Puntuable;
+import com.scoringsalud.app.puntuable.domain.PuntuableRepository;
 
 
 public class PuntuableService {
@@ -17,14 +17,15 @@ public class PuntuableService {
 	@Autowired
 	private PuntuableRepository puntuableRepository;
 	
-	public String getByNombre(String nombre)
+	
+	public String getByCodigo(String codigo)
 			throws ApiRequestException, ApiServerException, ApiNotFoundException, ApiProcessingException {
-		if (nombre == null || nombre.isEmpty()) {
+		if (codigo == null || codigo.isEmpty()) {
 			throw new ApiRequestException("El nombre no puede estar vacío.");
 		}
 		Puntuable puntuableEncontrado;
 		try {
-			puntuableEncontrado = puntuableRepository.findByNombre(nombre.trim());
+			puntuableEncontrado = puntuableRepository.findByCodigo(codigo.trim());
 		} catch (Exception e) {
 			throw new ApiNotFoundException(e.getMessage());
 		}

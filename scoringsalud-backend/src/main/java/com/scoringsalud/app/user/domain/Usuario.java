@@ -1,4 +1,4 @@
-package com.scoringsalud.app.domain.user;
+package com.scoringsalud.app.user.domain;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;

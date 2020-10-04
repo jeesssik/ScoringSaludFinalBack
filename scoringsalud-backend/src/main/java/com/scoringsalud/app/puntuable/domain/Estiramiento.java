@@ -1,9 +1,9 @@
-package com.scoringsalud.app.domain.puntuable;
+package com.scoringsalud.app.puntuable.domain;
 
 public class Estiramiento extends Regular{
 
-	public Estiramiento(String nombre, int puntosOtorgables, boolean PosicionUnica, int repeticiones) {
-		super(nombre, puntosOtorgables, PosicionUnica, repeticiones);
+	public Estiramiento(String codigo, String nombre, int puntosOtorgables, boolean PosicionUnica, int repeticiones) {
+		super(codigo, nombre, puntosOtorgables, PosicionUnica, repeticiones);
 		
 	}
 

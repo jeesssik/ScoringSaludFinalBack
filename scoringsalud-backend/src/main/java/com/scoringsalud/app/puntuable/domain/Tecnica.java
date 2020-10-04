@@ -1,4 +1,4 @@
-package com.scoringsalud.app.domain.puntuable;
+package com.scoringsalud.app.puntuable.domain;
 
 import java.util.ArrayList;
 
@@ -13,8 +13,8 @@ public class Tecnica extends Programada{
 	private ArrayList<Regular> regulares;
 	
 	
-	public Tecnica(String nombre, int puntosOtorgables,int ciclosMaximos,int tiempoCiclo,int tiempoPausaCorta,int tiempoPausaLarga) {
-		super(nombre, puntosOtorgables);
+	public Tecnica(String codigo,String nombre, int puntosOtorgables,int ciclosMaximos,int tiempoCiclo,int tiempoPausaCorta,int tiempoPausaLarga) {
+		super(codigo,nombre, puntosOtorgables);
 		this.ciclosMaximos = ciclosMaximos;
 		this.ciclosRealizados = 0;
 		this.pausasRealizadas = 0;
