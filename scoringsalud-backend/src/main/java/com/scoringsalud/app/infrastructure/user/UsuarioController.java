@@ -26,8 +26,8 @@ public class UsuarioController {
 
 	@PostMapping(path = "/crearUsuario")
 	public ResponseEntity<String> crearUsuario(@RequestBody Usuario usuario) {
-		String usuarioCreado = this.usuario.crear(usuario).toString();
-		return new ResponseEntity<>(usuarioCreado, HttpStatus.OK);
+		if (this.usuario.crear(usuario)!=null);
+			return new ResponseEntity<>("Usuario creado", HttpStatus.OK);
 	}
 
 	@PutMapping(path = "/actualizarUsuario")
