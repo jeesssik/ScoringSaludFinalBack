@@ -1,5 +1,6 @@
 package com.scoringsalud.app.domain.puntuable;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Tecnica extends Programada{
@@ -13,8 +14,8 @@ public class Tecnica extends Programada{
 	private ArrayList<Regular> regulares;
 	
 	
-	public Tecnica(String nombre, int puntosOtorgables,int ciclosMaximos,int tiempoCiclo,int tiempoPausaCorta,int tiempoPausaLarga) {
-		super(nombre, puntosOtorgables);
+	public Tecnica(String nombre, int puntosOtorgables,int ciclosMaximos,int tiempoCiclo,int tiempoPausaCorta,int tiempoPausaLarga, LocalDateTime horaInicio) {
+		super(nombre, puntosOtorgables, horaInicio);
 		this.ciclosMaximos = ciclosMaximos;
 		this.ciclosRealizados = 0;
 		this.pausasRealizadas = 0;
@@ -105,6 +106,22 @@ public class Tecnica extends Programada{
 	public String getDetalle() {
 		
 		return null;
+	}
+
+
+	@Override
+	public LocalDateTime getHoraInicio() {
+		
+		return horaInicio;
+	}
+
+
+
+
+	@Override
+	public void setHoraInicio(LocalDateTime horaNueva) {
+		this.horaInicio = horaNueva;
+		
 	}
 
 }
