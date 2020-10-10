@@ -9,14 +9,14 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public abstract class Regular extends Puntuable {
+public abstract class Actividad extends Puntuable {
 
 	protected @Getter @Setter boolean PosicionUnica;
 	protected @Getter int repeticiones;
 	protected @Getter @Setter int repeticionesRealizadas;
 	protected ArrayList<Medidor> medidores;
 	
-	public Regular(String codigo, String nombre, int puntosOtorgables,boolean PosicionUnica,int repeticiones) {
+	public Actividad(String codigo, String nombre, int puntosOtorgables,boolean PosicionUnica,int repeticiones) {
 		super(codigo, nombre,puntosOtorgables);
 		this.PosicionUnica=PosicionUnica;
 		setRepeticiones(repeticiones);

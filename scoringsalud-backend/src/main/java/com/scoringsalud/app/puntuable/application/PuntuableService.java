@@ -14,7 +14,7 @@ import com.scoringsalud.app.exceptions.application.ApiServerException;
 import com.scoringsalud.app.puntuable.domain.Medidor;
 import com.scoringsalud.app.puntuable.domain.Puntuable;
 import com.scoringsalud.app.puntuable.domain.PuntuableRepository;
-import com.scoringsalud.app.puntuable.domain.Regular;
+import com.scoringsalud.app.puntuable.domain.Actividad;
 
 public class PuntuableService {
 
@@ -111,16 +111,16 @@ public class PuntuableService {
 			return puntuableActualizado;
 		}
 		
-		public Puntuable actualizarRegular(Puntuable puntuable) throws ApiRequestException, ApiServerException, ApiNotFoundException {
+		public Puntuable actualizarActividad(Puntuable puntuable) throws ApiRequestException, ApiServerException, ApiNotFoundException {
 			Puntuable p = puntuableRepository.findByCodigo(puntuable.getCodigo().trim());
 			
 			if (p == null) {
 				throw new ApiNotFoundException(
 						"El puntuable " + puntuable.getCodigo() + " no fue encontrado, verifique su codigo.");
 			}
-			if(!(p instanceof Regular)) {
+			if(!(p instanceof Actividad)) {
 				throw new ApiNotFoundException(
-						"El puntuable " + puntuable.getCodigo() + " no es Regular.");
+						"El puntuable " + puntuable.getCodigo() + " no es una Actividad.");
 			}
 			
 			try {
@@ -130,28 +130,29 @@ public class PuntuableService {
 			}
 			
 			// Validación campos vacíos
-			if (Boolean.valueOf(((Regular)puntuable).isPosicionUnica()) == null) {
+			if (Boolean.valueOf(((Actividad)puntuable).isPosicionUnica()) == null) {
 				throw new ApiRequestException("Posicion Unica no ingresado.");
 			}
 			
-			if (Integer.valueOf(((Regular)puntuable).getRepeticiones()) == null) {
+			if (Integer.valueOf(((Actividad)puntuable).getRepeticiones()) == null) {
 				throw new ApiRequestException("Repeticiones no ingresado.");
 			}
 			
 			// Trims y normalizaciones
-			Boolean posicionPuntuableNuevo = ((Regular)puntuable).isPosicionUnica();
-			Integer repeticionesPuntuableNuevo = Integer.valueOf(((Regular)puntuable).getRepeticiones());
-			ArrayList<Medidor> medidoresPuntuableNuevo = ((Regular)puntuable).getMedidores();
+			Boolean posicionPuntuableNuevo = ((Actividad)puntuable).isPosicionUnica();
+			Integer repeticionesPuntuableNuevo = Integer.valueOf(((Actividad)puntuable).getRepeticiones());
+			ArrayList<Medidor> medidoresPuntuableNuevo = ((Actividad)puntuable).getMedidores();
 
 			// Validaciones campos mal completados
-			if (Integer.valueOf(((Regular)puntuable).getRepeticiones()) <0) {
+			if (Integer.valueOf(((Actividad)puntuable).getRepeticiones()) <=0) {
 				throw new ApiRequestException("Las Repeticiones deben ser mayores a 0.");
 			}
+			
 			Puntuable puntuableActualizado;
 			try {
-				((Regular)p).setPosicionUnica(posicionPuntuableNuevo);
-				((Regular)p).setRepeticiones(repeticionesPuntuableNuevo);
-				((Regular)p).setMedidores(medidoresPuntuableNuevo);
+				((Actividad)p).setPosicionUnica(posicionPuntuableNuevo);
+				((Actividad)p).setRepeticiones(repeticionesPuntuableNuevo);
+				((Actividad)p).setMedidores(medidoresPuntuableNuevo);
 				puntuableActualizado = puntuableRepository.save(p);
 			} catch (Exception e) {
 				throw new ApiServerException(e.getMessage());

@@ -36,22 +36,22 @@ public class PuntuableController {
 		return new ResponseEntity<>("Puntuable  " + codigoPuntuableActualizado + " se actualizo correctamente.",
 				HttpStatus.OK);
 	}
-/*
-	@PutMapping(path = "/actualizarPuntuableMovimiento")
-	public ResponseEntity<String> actualizarPuntuableMovimiento(@RequestBody Puntuable puntuable) throws ApiRequestException, ApiServerException, ApiNotFoundException {
-		String codigoPuntuableActualizado = this.puntuable.actualizarMovimiento(puntuable).getByCodigo();
+
+	@PutMapping(path = "/actualizarPuntuableActividad")
+	public ResponseEntity<String> actualizarPuntuableActividad(@RequestBody Puntuable puntuable) throws ApiRequestException, ApiServerException, ApiNotFoundException {
+		String codigoPuntuableActualizado = this.puntuable.actualizarActividad(puntuable).getCodigo();
 		return new ResponseEntity<>("Puntuable  " + codigoPuntuableActualizado + " se actualizo correctamente.",
 				HttpStatus.OK);
 	}
 	
-	
+	/*
 	@PutMapping(path = "/actualizarPuntuableEstiramiento")
 	public ResponseEntity<String> actualizarPuntuableEstiramiento(@RequestBody Puntuable puntuable) throws ApiRequestException, ApiServerException, ApiNotFoundException {
 		String codigoPuntuableActualizado = this.puntuable.actualizarEstiramiento(puntuable).getByCodigo(); 
 		return new ResponseEntity<>("Puntuable  " + codigoPuntuableActualizado + " se actualizo correctamente.",
 				HttpStatus.OK);
 	}
-	
+	*/
 	
 	
 	@GetMapping(path = "/obtenerPuntuable", produces = "application/json")
@@ -66,5 +66,5 @@ public class PuntuableController {
 		String successMessage = "Puntuable: " + codigo + " eliminado.";
 		return new ResponseEntity<>(successMessage, HttpStatus.OK);
 	}
-	*/
+
 }
