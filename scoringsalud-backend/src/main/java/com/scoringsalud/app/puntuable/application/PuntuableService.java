@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -16,6 +17,7 @@ import com.scoringsalud.app.puntuable.domain.Puntuable;
 import com.scoringsalud.app.puntuable.domain.PuntuableRepository;
 import com.scoringsalud.app.puntuable.domain.Actividad;
 
+@Service
 public class PuntuableService {
 
 	@Autowired
