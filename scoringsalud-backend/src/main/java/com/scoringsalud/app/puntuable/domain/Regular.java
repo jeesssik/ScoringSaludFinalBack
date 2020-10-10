@@ -49,5 +49,22 @@ public abstract class Regular extends Puntuable {
 	public void setRepeticionesRealizadas(int repeticionesRealizadas) {
 		this.repeticionesRealizadas = repeticionesRealizadas;
 	}
+
+	public boolean isPosicionUnica() {
+		return PosicionUnica;
+	}
+
+	public void setPosicionUnica(boolean posicionUnica) {
+		PosicionUnica = posicionUnica;
+	}
+
+	public ArrayList<Medidor> getMedidores() {
+		return medidores;
+	}
+
+	public void setMedidores(ArrayList<Medidor> medidores) {
+		this.medidores = medidores;
+	}
+	
 	
 }
