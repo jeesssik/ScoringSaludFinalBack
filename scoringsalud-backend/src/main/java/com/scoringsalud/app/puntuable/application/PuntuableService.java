@@ -1,5 +1,6 @@
 package com.scoringsalud.app.puntuable.application;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,13 +11,10 @@ import com.scoringsalud.app.exceptions.application.ApiNotFoundException;
 import com.scoringsalud.app.exceptions.application.ApiProcessingException;
 import com.scoringsalud.app.exceptions.application.ApiRequestException;
 import com.scoringsalud.app.exceptions.application.ApiServerException;
+import com.scoringsalud.app.puntuable.domain.Medidor;
 import com.scoringsalud.app.puntuable.domain.Puntuable;
 import com.scoringsalud.app.puntuable.domain.PuntuableRepository;
 import com.scoringsalud.app.puntuable.domain.Regular;
-import com.scoringsalud.app.user.domain.Usuario;
-
-import lombok.Getter;
-
 
 public class PuntuableService {
 
@@ -76,7 +74,7 @@ public class PuntuableService {
 			
 			if (p == null) {
 				throw new ApiNotFoundException(
-						"El usuario " + puntuable.getCodigo() + " no fue encontrado, verifique su mail.");
+						"El puntuable \" + puntuable.getCodigo() + \" no fue encontrado, verifique su codigo.");
 			}
 
 			// Validación campos vacíos
@@ -111,6 +109,72 @@ public class PuntuableService {
 			}
 			
 			return puntuableActualizado;
+		}
+		
+		public Puntuable actualizarRegular(Puntuable puntuable) throws ApiRequestException, ApiServerException, ApiNotFoundException {
+			Puntuable p = puntuableRepository.findByCodigo(puntuable.getCodigo().trim());
+			
+			if (p == null) {
+				throw new ApiNotFoundException(
+						"El puntuable " + puntuable.getCodigo() + " no fue encontrado, verifique su codigo.");
+			}
+			if(!(p instanceof Regular)) {
+				throw new ApiNotFoundException(
+						"El puntuable " + puntuable.getCodigo() + " no es Regular.");
+			}
+			
+			try {
+				p = actualizar(p);
+			}catch(Exception e) {
+				throw new ApiServerException(e.getMessage());
+			}
+			
+			// Validación campos vacíos
+			if (Boolean.valueOf(((Regular)puntuable).isPosicionUnica()) == null) {
+				throw new ApiRequestException("Posicion Unica no ingresado.");
+			}
+			
+			if (Integer.valueOf(((Regular)puntuable).getRepeticiones()) == null) {
+				throw new ApiRequestException("Repeticiones no ingresado.");
+			}
+			
+			// Trims y normalizaciones
+			Boolean posicionPuntuableNuevo = ((Regular)puntuable).isPosicionUnica();
+			Integer repeticionesPuntuableNuevo = Integer.valueOf(((Regular)puntuable).getRepeticiones());
+			ArrayList<Medidor> medidoresPuntuableNuevo = ((Regular)puntuable).getMedidores();
+
+			// Validaciones campos mal completados
+			if (Integer.valueOf(((Regular)puntuable).getRepeticiones()) <0) {
+				throw new ApiRequestException("Las Repeticiones deben ser mayores a 0.");
+			}
+			Puntuable puntuableActualizado;
+			try {
+				((Regular)p).setPosicionUnica(posicionPuntuableNuevo);
+				((Regular)p).setRepeticiones(repeticionesPuntuableNuevo);
+				((Regular)p).setMedidores(medidoresPuntuableNuevo);
+				puntuableActualizado = puntuableRepository.save(p);
+			} catch (Exception e) {
+				throw new ApiServerException(e.getMessage());
+			}
+			
+			return puntuableActualizado;
+		}
+		
+		public void borrarTodos() {
+			puntuableRepository.deleteAll();
+		}
+
+		// Eliminar usuario
+		public void eliminar(String codigo) throws ApiRequestException, ApiServerException, ApiNotFoundException {
+			Puntuable puntuable = puntuableRepository.findByCodigo(codigo.trim());
+			if (puntuable == null) {
+				throw new ApiNotFoundException("El puntuable con codigo" + codigo + " no fue encontrado, verifique su puntuable.");
+			}
+			try {
+				puntuableRepository.delete(puntuable);
+			} catch (Exception e) {
+				throw new ApiServerException(e.getMessage());
+			}
 		}
 	
 
