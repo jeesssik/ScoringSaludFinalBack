@@ -1,4 +1,4 @@
-package com.scoringsalud.app.application.exceptions;
+package com.scoringsalud.app.exceptions.application;
 
 import java.time.LocalDateTime;
 

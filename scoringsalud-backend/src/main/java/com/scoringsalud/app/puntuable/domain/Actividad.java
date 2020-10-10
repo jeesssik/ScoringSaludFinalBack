@@ -1,4 +1,4 @@
-package com.scoringsalud.app.domain.puntuable;
+package com.scoringsalud.app.puntuable.domain;
 
 import java.util.ArrayList;
 
@@ -9,15 +9,15 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public abstract class Regular extends Puntuable {
+public abstract class Actividad extends Puntuable {
 
 	protected @Getter @Setter boolean PosicionUnica;
 	protected @Getter int repeticiones;
 	protected @Getter @Setter int repeticionesRealizadas;
 	protected ArrayList<Medidor> medidores;
 	
-	public Regular(String nombre, int puntosOtorgables,boolean PosicionUnica,int repeticiones) {
-		super(nombre,puntosOtorgables);
+	public Actividad(String codigo, String nombre, int puntosOtorgables,boolean PosicionUnica,int repeticiones) {
+		super(codigo, nombre,puntosOtorgables);
 		this.PosicionUnica=PosicionUnica;
 		setRepeticiones(repeticiones);
 		setRepeticionesRealizadas(0);
@@ -49,5 +49,22 @@ public abstract class Regular extends Puntuable {
 	public void setRepeticionesRealizadas(int repeticionesRealizadas) {
 		this.repeticionesRealizadas = repeticionesRealizadas;
 	}
+
+	public boolean isPosicionUnica() {
+		return PosicionUnica;
+	}
+
+	public void setPosicionUnica(boolean posicionUnica) {
+		PosicionUnica = posicionUnica;
+	}
+
+	public ArrayList<Medidor> getMedidores() {
+		return medidores;
+	}
+
+	public void setMedidores(ArrayList<Medidor> medidores) {
+		this.medidores = medidores;
+	}
+	
 	
 }
