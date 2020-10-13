@@ -9,7 +9,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public abstract class Actividad extends Puntuable {
+public class Actividad extends Puntuable {
 
 	protected @Getter @Setter boolean PosicionUnica;
 	protected @Getter int repeticiones;
@@ -22,20 +22,34 @@ public abstract class Actividad extends Puntuable {
 		setRepeticiones(repeticiones);
 		setRepeticionesRealizadas(0);
 	}
+	public Actividad(String codigo, String nombre, int puntosOtorgables,boolean PosicionUnica,int repeticiones,ArrayList<Medidor> medidores) {
+		super(codigo, nombre,puntosOtorgables);
+		this.PosicionUnica=PosicionUnica;
+		setRepeticiones(repeticiones);
+		setRepeticionesRealizadas(0);
+		setMedidores(medidores);
+	}
+
 
 	@Override
-	public abstract void calcularPuntos(); 
+	public void calcularPuntos() {
+		
+	};
 
 	@Override
-	public abstract String getDetalle();
+	public String getDetalle() {
+		return null;
+	};
 
 	//getters / setters
 	public void setRepeticiones(int repeticiones) {
+		
 		if(PosicionUnica) {
-			this.repeticiones=repeticiones;
+			this.repeticiones = repeticiones;
 		}else {
-			this.repeticiones=repeticiones*2;
+			this.repeticiones = repeticiones + repeticiones;
 		}
+		
 	}
 
 	public int getRepeticiones() {

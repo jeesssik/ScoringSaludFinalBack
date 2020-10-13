@@ -17,6 +17,7 @@ import com.scoringsalud.app.exceptions.application.ApiNotFoundException;
 import com.scoringsalud.app.exceptions.application.ApiProcessingException;
 import com.scoringsalud.app.exceptions.application.ApiRequestException;
 import com.scoringsalud.app.exceptions.application.ApiServerException;
+import com.scoringsalud.app.puntuable.domain.Actividad;
 import com.scoringsalud.app.puntuable.domain.Puntuable;
 
 @RestController
@@ -25,22 +26,22 @@ public class PuntuableController {
 	@Autowired
 	private PuntuableService puntuable;
 
-	@PostMapping(path = "/puntuable/crearPuntuable")
-	public ResponseEntity<String> crearPuntuable(@RequestBody Puntuable puntuable) {
-		String puntuableCreado = this.puntuable.crear(puntuable).toString();
+	@PostMapping(path = "/puntuable/crearActividad")
+	public ResponseEntity<String> crearPuntuable(@RequestBody Actividad actividad) {
+		String puntuableCreado = this.puntuable.crearActividad(actividad).toString();
 		return new ResponseEntity<>(puntuableCreado, HttpStatus.OK);
 	}
-
-	@PutMapping(path = "/puntuable/actualizarPuntuable")
-	public ResponseEntity<String> actualizarPuntuable(@RequestBody Puntuable puntuable) throws ApiRequestException, ApiServerException, ApiNotFoundException {
-		String codigoPuntuableActualizado = this.puntuable.actualizar(puntuable).getCodigo();
+/*
+	@PutMapping(path = "/puntuable/actualizar")
+	public ResponseEntity<String> actualizarActividad(@RequestBody Actividad actividad) throws ApiRequestException, ApiServerException, ApiNotFoundException {
+		String codigoPuntuableActualizado = this.puntuable.actualizar(actividad).getCodigo();
 		return new ResponseEntity<>("Puntuable  " + codigoPuntuableActualizado + " se actualizo correctamente.",
 				HttpStatus.OK);
 	}
-
-	@PutMapping(path = "/puntuable/actualizarPuntuableActividad")
-	public ResponseEntity<String> actualizarPuntuableActividad(@RequestBody Puntuable puntuable) throws ApiRequestException, ApiServerException, ApiNotFoundException {
-		String codigoPuntuableActualizado = this.puntuable.actualizarActividad(puntuable).getCodigo();
+*/
+	@PutMapping(path = "/puntuable/actualizarActividad")
+	public ResponseEntity<String> actualizarPuntuableActividad(@RequestBody Actividad actividad) throws ApiRequestException, ApiServerException, ApiNotFoundException {
+		String codigoPuntuableActualizado = this.puntuable.actualizarActividad(actividad).getCodigo();
 		return new ResponseEntity<>("Puntuable  " + codigoPuntuableActualizado + " se actualizo correctamente.",
 				HttpStatus.OK);
 	}

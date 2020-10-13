@@ -24,6 +24,22 @@ public class PuntuableService {
 	private PuntuableRepository puntuableRepository;
 	
 	// Create operation
+		public Actividad crearActividad(Actividad actividad) throws ApiRequestException, ApiServerException {
+			if (actividad.getCodigo() == null || actividad.getCodigo().isEmpty()) {
+				throw new ApiRequestException("El campo codigo no puede estar vacio para crear el puntuable");
+			}
+			Actividad actividadEncontrado = (Actividad)puntuableRepository.findByCodigo(actividad.getCodigo().trim());
+			if (!(actividadEncontrado == null)) {
+				return actividadEncontrado;
+			}
+			try {
+				puntuableRepository.save(actividad);
+			} catch (Exception e) {
+				throw new ApiServerException("Error al intentar crear el usuario");
+			}
+			return puntuableRepository.save(actividad);
+		}
+	/*
 		public Puntuable crear(Puntuable puntuable) throws ApiRequestException, ApiServerException {
 			if (puntuable.getCodigo() == null || puntuable.getCodigo().isEmpty()) {
 				throw new ApiRequestException("El campo codigo no puede estar vacio para crear el puntuable");
@@ -39,7 +55,7 @@ public class PuntuableService {
 			}
 			return puntuableRepository.save(puntuable);
 		}
-	
+		*/
 		// Retrieve operation
 		public List<Puntuable> getAll() {
 			return puntuableRepository.findAll();
@@ -71,7 +87,7 @@ public class PuntuableService {
 	}
 	
 	// Update operation
-		public Puntuable actualizar(Puntuable puntuable) throws ApiRequestException, ApiServerException, ApiNotFoundException {
+		private Puntuable actualizar(Puntuable puntuable) throws ApiRequestException, ApiServerException, ApiNotFoundException {
 			Puntuable p = puntuableRepository.findByCodigo(puntuable.getCodigo().trim());
 			
 			if (p == null) {
@@ -97,32 +113,32 @@ public class PuntuableService {
 			if (puntuable.getNombre().length() < 2) {
 				throw new ApiRequestException("Nombre debe ser mayor a un caracter.");
 			}
-			if (puntuable.getPuntosOtorgables() > 0) {
+			if (puntuable.getPuntosOtorgables() < 0) {
 				throw new ApiRequestException("Los puntos no pueden ser menor a 0.");
 			}
 			
-			Puntuable puntuableActualizado;
+			
 			try {
 				p.setNombre(nombrePuntuableNuevo);
 				p.setPuntosOtorgables(puntosPuntuableNuevo);
-				puntuableActualizado = puntuableRepository.save(p);
 			} catch (Exception e) {
 				throw new ApiServerException(e.getMessage());
 			}
 			
-			return puntuableActualizado;
+			return p;
 		}
 		
-		public Puntuable actualizarActividad(Puntuable puntuable) throws ApiRequestException, ApiServerException, ApiNotFoundException {
-			Puntuable p = puntuableRepository.findByCodigo(puntuable.getCodigo().trim());
+		public Actividad actualizarActividad(Actividad actividad) throws ApiRequestException, ApiServerException, ApiNotFoundException {
+			Puntuable p = puntuableRepository.findByCodigo(actividad.getCodigo().trim());
+
 			
 			if (p == null) {
 				throw new ApiNotFoundException(
-						"El puntuable " + puntuable.getCodigo() + " no fue encontrado, verifique su codigo.");
+						"El puntuable " + actividad.getCodigo() + " no fue encontrado, verifique su codigo.");
 			}
 			if(!(p instanceof Actividad)) {
 				throw new ApiNotFoundException(
-						"El puntuable " + puntuable.getCodigo() + " no es una Actividad.");
+						"El puntuable " + actividad.getCodigo() + " no es una Actividad.");
 			}
 			
 			try {
@@ -132,21 +148,21 @@ public class PuntuableService {
 			}
 			
 			// Validación campos vacíos
-			if (Boolean.valueOf(((Actividad)puntuable).isPosicionUnica()) == null) {
+			if (Boolean.valueOf(((Actividad)actividad).isPosicionUnica()) == null) {
 				throw new ApiRequestException("Posicion Unica no ingresado.");
 			}
 			
-			if (Integer.valueOf(((Actividad)puntuable).getRepeticiones()) == null) {
+			if (Integer.valueOf(((Actividad)actividad).getRepeticiones()) == null) {
 				throw new ApiRequestException("Repeticiones no ingresado.");
 			}
 			
 			// Trims y normalizaciones
-			Boolean posicionPuntuableNuevo = ((Actividad)puntuable).isPosicionUnica();
-			Integer repeticionesPuntuableNuevo = Integer.valueOf(((Actividad)puntuable).getRepeticiones());
-			ArrayList<Medidor> medidoresPuntuableNuevo = ((Actividad)puntuable).getMedidores();
+			Boolean posicionPuntuableNuevo = ((Actividad)actividad).isPosicionUnica();
+			Integer repeticionesPuntuableNuevo = Integer.valueOf(((Actividad)actividad).getRepeticiones());
+			ArrayList<Medidor> medidoresPuntuableNuevo = ((Actividad)actividad).getMedidores();
 
 			// Validaciones campos mal completados
-			if (Integer.valueOf(((Actividad)puntuable).getRepeticiones()) <=0) {
+			if (repeticionesPuntuableNuevo <=0) {
 				throw new ApiRequestException("Las Repeticiones deben ser mayores a 0.");
 			}
 			
@@ -160,7 +176,7 @@ public class PuntuableService {
 				throw new ApiServerException(e.getMessage());
 			}
 			
-			return puntuableActualizado;
+			return (Actividad)puntuableActualizado;
 		}
 		
 		public void borrarTodos() {
@@ -171,7 +187,7 @@ public class PuntuableService {
 		public void eliminar(String codigo) throws ApiRequestException, ApiServerException, ApiNotFoundException {
 			Puntuable puntuable = puntuableRepository.findByCodigo(codigo.trim());
 			if (puntuable == null) {
-				throw new ApiNotFoundException("El puntuable con codigo" + codigo + " no fue encontrado, verifique su puntuable.");
+				throw new ApiNotFoundException("El puntuable con codigo: " + codigo + " no fue encontrado, verifique su puntuable.");
 			}
 			try {
 				puntuableRepository.delete(puntuable);
