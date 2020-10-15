@@ -29,9 +29,11 @@ public class PuntuableService {
 				throw new ApiRequestException("El campo codigo no puede estar vacio para crear el puntuable");
 			}
 			Actividad actividadEncontrado = (Actividad)puntuableRepository.findByCodigo(actividad.getCodigo().trim());
+			
 			if (!(actividadEncontrado == null)) {
 				return actividadEncontrado;
 			}
+
 			try {
 				puntuableRepository.save(actividad);
 			} catch (Exception e) {
@@ -159,7 +161,7 @@ public class PuntuableService {
 			// Trims y normalizaciones
 			Boolean posicionPuntuableNuevo = ((Actividad)actividad).isPosicionUnica();
 			Integer repeticionesPuntuableNuevo = Integer.valueOf(((Actividad)actividad).getRepeticiones());
-			ArrayList<Medidor> medidoresPuntuableNuevo = ((Actividad)actividad).getMedidores();
+			Medidor[] medidoresPuntuableNuevo = ((Actividad)actividad).getMedidores();
 
 			// Validaciones campos mal completados
 			if (repeticionesPuntuableNuevo <=0) {

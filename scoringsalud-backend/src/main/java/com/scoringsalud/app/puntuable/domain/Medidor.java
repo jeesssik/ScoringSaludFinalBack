@@ -1,7 +1,7 @@
 package com.scoringsalud.app.puntuable.domain;
 
-public interface Medidor {
+public abstract class Medidor {
 
-	public String getTipo();
+	public abstract String getTipo();
 	
 }

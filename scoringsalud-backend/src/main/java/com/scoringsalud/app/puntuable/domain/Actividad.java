@@ -14,7 +14,7 @@ public class Actividad extends Puntuable {
 	protected @Getter @Setter boolean PosicionUnica;
 	protected @Getter int repeticiones;
 	protected @Getter @Setter int repeticionesRealizadas;
-	protected ArrayList<Medidor> medidores;
+	protected Medidor[] medidores;
 	
 	public Actividad(String codigo, String nombre, int puntosOtorgables,boolean PosicionUnica,int repeticiones) {
 		super(codigo, nombre,puntosOtorgables);
@@ -22,12 +22,12 @@ public class Actividad extends Puntuable {
 		setRepeticiones(repeticiones);
 		setRepeticionesRealizadas(0);
 	}
-	public Actividad(String codigo, String nombre, int puntosOtorgables,boolean PosicionUnica,int repeticiones,ArrayList<Medidor> medidores) {
+	public Actividad(String codigo, String nombre, int puntosOtorgables,boolean PosicionUnica,int repeticiones, Medidor[] medidores) {
 		super(codigo, nombre,puntosOtorgables);
 		this.PosicionUnica=PosicionUnica;
 		setRepeticiones(repeticiones);
 		setRepeticionesRealizadas(0);
-		setMedidores(medidores);
+		this.medidores = medidores;
 	}
 
 
@@ -71,14 +71,14 @@ public class Actividad extends Puntuable {
 	public void setPosicionUnica(boolean posicionUnica) {
 		PosicionUnica = posicionUnica;
 	}
-
-	public ArrayList<Medidor> getMedidores() {
+	public Medidor[] getMedidores() {
 		return medidores;
 	}
-
-	public void setMedidores(ArrayList<Medidor> medidores) {
+	public void setMedidores(Medidor[] medidores) {
 		this.medidores = medidores;
 	}
+
+
 	
 	
 }
