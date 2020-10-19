@@ -1,4 +1,4 @@
-package com.scoringsalud.app.application.exceptions;
+package com.scoringsalud.app.exceptions.application;
 
 public class ApiServerException extends RuntimeException {
 

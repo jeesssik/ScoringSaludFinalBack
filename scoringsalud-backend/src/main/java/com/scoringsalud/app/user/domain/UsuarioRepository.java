@@ -1,4 +1,4 @@
-package com.scoringsalud.app.domain.user;
+package com.scoringsalud.app.user.domain;
 
 import java.util.List;
 
