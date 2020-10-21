@@ -24,26 +24,26 @@ public class UsuarioController {
 	@Autowired
 	private UsuarioService usuario;
 
-	@PostMapping(path = "/crearUsuario")
+	@PostMapping(path = "/usuario/crearUsuario")
 	public ResponseEntity<String> crearUsuario(@RequestBody Usuario usuario) {
 		String usuarioCreado = this.usuario.crear(usuario).toString();
 		return new ResponseEntity<>(usuarioCreado, HttpStatus.OK);
 	}
 
-	@PutMapping(path = "/actualizarUsuario")
+	@PutMapping(path = "/usuario/actualizarUsuario")
 	public ResponseEntity<String> actualizarUsuario(@RequestBody Usuario usuario) throws ApiRequestException, ApiServerException, ApiNotFoundException {
 		String mailUsuarioActualizado = this.usuario.actualizar(usuario).getMail();
 		return new ResponseEntity<>("El usuario " + mailUsuarioActualizado + " se actualizo correctamente.",
 				HttpStatus.OK);
 	}
 
-	@GetMapping(path = "/obtenerUsuario", produces = "application/json")
+	@GetMapping(path = "/usuario/obtenerUsuario", produces = "application/json")
 	public ResponseEntity<String> buscarUsuario(@RequestParam String mail) throws ApiRequestException, ApiServerException, ApiNotFoundException, ApiProcessingException {
 		String usuarioEncontrado = this.usuario.getByMail(mail);
 		return new ResponseEntity<>(usuarioEncontrado, HttpStatus.OK);
 	}
 
-	@DeleteMapping(path = "/eliminar")
+	@DeleteMapping(path = "/usuario/eliminar")
 	public ResponseEntity<String> delete(@RequestParam String mail) throws ApiRequestException, ApiServerException, ApiNotFoundException {
 		usuario.eliminar(mail);
 		String successMessage = "Usuario: " + mail + " eliminado.";

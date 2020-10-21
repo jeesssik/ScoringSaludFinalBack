@@ -1,6 +1,6 @@
 package com.scoringsalud.app.puntuable.domain;
 
-public class Proximidad implements Medidor{
+public class Proximidad extends Medidor{
 
 	@Override
 	public String getTipo() {

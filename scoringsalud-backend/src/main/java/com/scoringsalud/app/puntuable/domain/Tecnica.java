@@ -10,7 +10,7 @@ public class Tecnica extends Programada{
 	private int tiempoCiclo;
 	private int tiempoPausaCorta;
 	private int tiempoPausaLarga;
-	private ArrayList<Regular> regulares;
+	private ArrayList<Actividad> actividades;
 	
 	
 	public Tecnica(String codigo,String nombre, int puntosOtorgables,int ciclosMaximos,int tiempoCiclo,int tiempoPausaCorta,int tiempoPausaLarga) {
@@ -21,7 +21,7 @@ public class Tecnica extends Programada{
 		this.tiempoCiclo = tiempoCiclo;
 		this.tiempoPausaCorta= tiempoPausaCorta;
 		this.tiempoPausaLarga =tiempoPausaLarga;
-		this.regulares = new ArrayList<Regular>();
+		this.actividades = new ArrayList<Actividad>();
 		
 	}
 
@@ -74,22 +74,22 @@ public class Tecnica extends Programada{
 		this.tiempoPausaLarga = tiempoPausaLarga;
 	}
 
-	public ArrayList<Regular> getRegulares() {
-		return regulares;
+	public ArrayList<Actividad> getRegulares() {
+		return actividades;
 	}
 
-	public void setRegulares(ArrayList<Regular> regulares) {
-		this.regulares = regulares;
+	public void setRegulares(ArrayList<Actividad> actividades) {
+		this.actividades = actividades;
 	}
 
-	public void addRegulares(Regular r) {
-		this.regulares.add((Regular) r);
+	public void addRegulares(Actividad r) {
+		this.actividades.add((Actividad) r);
 	}
 	
  	private int calcularPuntosRegulares() {
 	int acumulador;
 	acumulador =0;
-		for(Regular r : regulares) {
+		for(Actividad r : actividades) {
 			acumulador += (r.getPuntosObtenidos())*2;
 		}
 	return acumulador;

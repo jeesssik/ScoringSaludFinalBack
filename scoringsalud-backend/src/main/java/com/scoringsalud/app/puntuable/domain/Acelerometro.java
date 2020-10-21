@@ -1,6 +1,6 @@
 package com.scoringsalud.app.puntuable.domain;
 
-public class Acelerometro implements Medidor {
+public class Acelerometro extends Medidor {
 	protected int [] posicionUno;
 	protected int [] posicionDos;
 	
