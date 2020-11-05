@@ -1,7 +1,12 @@
 package com.scoringsalud.app.user.domain;
 
+import java.util.ArrayList;
+
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import com.scoringsalud.app.puntuable.domain.Puntuable;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -10,7 +15,6 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-
 @Document(collection = "Usuario")
 public class Usuario {
 	//ACÁ PONER TODOS LOS ATRIBUTOS DE USUARIO, EJ:
@@ -21,7 +25,8 @@ public class Usuario {
 	private String apellido;
 	private String edad;
 	private String puesto;
-	private int puntos; //puntos totales? mensuales? diarios?
+	 @DBRef(db="puntuable")
+	private ArrayList<Puntuable> puntuables = new ArrayList<Puntuable>();
 	
 	public Usuario(String mail, String nombre, String apellido, String edad) {
 		this.mail = mail;
@@ -66,14 +71,15 @@ public class Usuario {
 	public void setPuesto(String puesto) {
 		this.puesto = puesto;
 	}
-	public int getPuntos() {
-		return puntos;
+	public ArrayList<Puntuable> getPuntuables() {
+		return this.puntuables;
 	}
-	public void setPuntos(int puntos) {
-		this.puntos = puntos;
-	}	
+	public void addPuntuable(Puntuable puntuable) {
+		this.puntuables.add(puntuable);
+	}
 	
 	public String toString() {
 		return "Nombre: "+nombre+", Apellido:"+apellido+", Edad:"+edad;
 	}
+	
 }
