@@ -69,13 +69,15 @@ public class PuntuableService {
 			Instant instant = todayWithZeroTime.toInstant();
 			List<Puntuable> puntuableEncontrado = puntuableRepository.findByFechaUserMailAndTipo(instant, mail,tipo);
 			Puntuable puntuableActualizado;
+			int unidadesActualizadas = 0;
 			if(tipo.equals("Agua")) {
 				ArrayList<Puntuable> puntuablesAgua = new ArrayList<Puntuable>(puntuableEncontrado);
 				if( puntuablesAgua.isEmpty()) {
-					puntuableActualizado = new Puntuable("Agua", "Vasos Agua", unidades, "", mail);
+					puntuableActualizado = new Puntuable("Agua", "Vasos Agua", 0, "", mail);
 				}else {
 					puntuableActualizado = puntuablesAgua.get(0);
 					puntuableActualizado.setUnidades(unidades);
+					unidadesActualizadas = unidades;
 				}
 				int puntosOtorgados;
 				if(unidades > 8) {
@@ -88,10 +90,11 @@ public class PuntuableService {
 			}else if(tipo.equals("Sueño")) {
 				ArrayList<Puntuable> puntuablesSueño = new ArrayList<Puntuable>(puntuableEncontrado);
 				if( puntuablesSueño.isEmpty()) {
-					puntuableActualizado = new Puntuable("Sueño", "Horas de Sueño", unidades, "", mail);
+					puntuableActualizado = new Puntuable("Sueño", "Horas de Sueño", 0, "", mail);
 				}else {
 					puntuableActualizado = puntuablesSueño.get(0);
 					puntuableActualizado.setUnidades(unidades);
+					unidadesActualizadas = unidades;
 				}
 				int puntosOtorgados;
 				if(unidades > 8) {
@@ -106,17 +109,18 @@ public class PuntuableService {
 			}else if(tipo.equals("Pasos")) {
 				ArrayList<Puntuable> puntuablesPasos = new ArrayList<Puntuable>(puntuableEncontrado);
 				if( puntuablesPasos.isEmpty()) {
-					puntuableActualizado = new Puntuable("Pasos", "Pasos Realizados", unidades, "", mail);
+					puntuableActualizado = new Puntuable("Pasos", "Pasos Realizados", 0, "", mail);
 				}else {
 					puntuableActualizado = puntuablesPasos.get(0);
 					puntuableActualizado.setUnidades(unidades);
+					unidadesActualizadas = unidades;
 				}
 				int puntosOtorgados = unidades+1/10;
 				puntuableActualizado.setPuntos(puntosOtorgados);
 				puntuableRepository.save(puntuableActualizado);
 			}
 			
-			return unidades;
+			return unidadesActualizadas;
 		}
 
 	
