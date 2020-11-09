@@ -94,10 +94,10 @@ public class UsuarioService {
 		}
 
 		// Trims y normalizaciones
-		String nombreUsuarioNuevo = usuario.getNombre().replaceAll("\\s{2,}", " ").trim();
-		String apellidoUsuarioNuevo = usuario.getApellido().replaceAll("\\s{2,}", " ").trim();
-		String edadUsuarioNuevo = usuario.getEdad().replaceAll("\s+", "").trim();
-		String dniUsuarioNuevo = usuario.getDni().replaceAll(".", "").replaceAll("\s+", "").trim();
+		String nombreUsuarioNuevo = usuario.getNombre().trim();
+		String apellidoUsuarioNuevo = usuario.getApellido().trim();
+		String edadUsuarioNuevo = usuario.getEdad().trim();
+		String dniUsuarioNuevo = usuario.getDni().trim();
 
 		// Validaciones campos mal completados
 		if (usuario.getNombre().length() < 2) {
